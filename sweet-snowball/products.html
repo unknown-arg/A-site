@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sweet Snowball - Our Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="images/sscircle.svg" />
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+main {
+    flex: 1;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 1200px;
+    height: 76px;
+    padding: 0 28px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    transition: all .35s ease;
+}
+
+@media (hover: hover) {
+    .navbar:hover {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+        transform: translateX(-50%) scale(1.01);
+    }
+}
+
+.logo img {
+    height: 44px;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #111;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 4px;
+    transition: color .25s;
+}
+
+.nav-links a:hover {
+    color: #555;
+}
+
+.nav-links a.active-page {
+    font-weight: 600;
+    border-bottom: 2px solid #333;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 60svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, .65) 100%), rgba(0, 0, 0, .2);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 24px;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    text-shadow: 0 6px 24px rgba(0, 0, 0, .75);
+    opacity: 0;
+    animation: heroRise 1s ease forwards;
+}
+
+.hero-sub {
+    font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+    font-weight: 300;
+    text-shadow: 0 4px 14px rgba(0, 0, 0, .6);
+    opacity: 0;
+    animation: heroRise 1s ease forwards;
+    animation-delay: .3s;
+}
+
+/* --- PRODUCTS SECTION --- */
+.products-section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 60px 24px;
+}
+
+.products-header {
+    font-size: 2.3rem;
+    color: #000;
+    margin: 60px 0 30px 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.product-box {
+    position: relative;
+    background: rgba(255, 255, 255, .95);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 210px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s cubic-bezier(.22,.61,.36,1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroRise 0.9s forwards ease-out;
+}
+
+.product-box:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.18), 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.product-photo {
+    width: 100%;
+    max-width: 170px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    background: #eee;
+    transition: transform .55s cubic-bezier(.22,.61,.36,1);
+}
+
+.product-box:hover .product-photo {
+    transform: scale(1.12);
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background: #0f0f0f;
+    color: #ddd;
+    padding: 60px 20px;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.footer-logo img { height: 90px; }
+
+.footer-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.footer-details a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .25s;
+}
+
+.footer-details a:hover { color: #fff; }
+
+.footer-copy {
+    margin-top: 40px;
+    font-size: 0.85rem;
+    text-align: center;
+    opacity: 0.6;
+}
+
+/* --- ANIMATIONS & MOBILE --- */
+@keyframes heroRise {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger div {
+    width: 26px;
+    height: 3px;
+    background: #111;
+    border-radius: 2px;
+    transition: .3s;
+}
+
+.hamburger.open div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open div:nth-child(2) { opacity: 0; }
+.hamburger.open div:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+@media (max-width: 720px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 76px;
+        right: 0;
+        background: white;
+        width: 200px;
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .nav-links.active { display: flex; }
+    .hamburger { display: flex; }
+    .footer-content { flex-direction: column; text-align: center; }
+    .footer-details { align-items: center; }
+}
+</style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="images/SSLOONG BLACK.svg" alt="Sweet Snowball Logo" />
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="stores.html">Our Stores</a>
+      <a href="products.html" class="active-page">Our Products</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+        <img src="images/home/gelato3.webp" alt="Sweet Snowball Products">
+        <div class="hero-content">
+            <h1>Our Products</h1>
+            <p class="hero-sub">
+                Crafted with real ingredients, rich flavors, and a touch of love, just for you.
+            </p>
+        </div>
+    </section>
+
+    <section class="products-section">
+      <h2 class="products-header">Ice Creams</h2>
+      <div class="products-container">
+        <div class="product-box">
+          <img src="images/products/ice creams/vanilla.webp" alt="Vanilla" class="product-photo" />
+          <div class="product-name">Vanilla</div>
+        </div>
+        <div class="product-box" style="animation-delay: 0.1s;">
+          <img src="images/products/ice creams/strawberry.webp" alt="Strawberry" class="product-photo" />
+          <div class="product-name">Strawberry</div>
+        </div>
+        <div class="product-box" style="animation-delay: 0.2s;">
+          <img src="images/products/ice creams/butterscotch.webp" alt="Butter Scotch" class="product-photo" />
+          <div class="product-name">Butter Scotch</div>
+        </div>
+        <div class="product-box" style="animation-delay: 0.3s;">
+          <img src="images/products/ice creams/mango.webp" alt="Alphanso Mango" class="product-photo" />
+          <div class="product-name">Alphanso Mango</div>
+        </div>
+        <div class="product-box" style="animation-delay: 0.4s;">
+          <img src="images/products/ice creams/chocolate.webp" alt="Belgian Chocolate" class="product-photo" />
+          <div class="product-name">Belgian Chocolate</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/chocofudgecake.webp" alt="Chocolate Fudge" class="product-photo" />
+          <div class="product-name">Chocolate Fudge</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/blackcurrant.webp" alt="Black Current" class="product-photo" />
+          <div class="product-name">Black Current</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/blueberry.webp" alt="Blueberry" class="product-photo" />
+          <div class="product-name">Blueberry</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/bubblegum.webp" alt="Bubble Gum" class="product-photo" />
+          <div class="product-name">Bubble Gum</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/americannuts.webp" alt="American Nut" class="product-photo" />
+          <div class="product-name">American Nut</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/tutifruti.webp" alt="Tutti Fruti" class="product-photo" />
+          <div class="product-name">Tutti Fruti</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/chocooreo.webp" alt="Chocolate Oreo" class="product-photo" />
+          <div class="product-name">Chocolate Oreo</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/oreo.webp" alt="Oreo Cookies" class="product-photo" />
+          <div class="product-name">Oreo Cookies</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/kesarpista.webp" alt="Kesar Pista" class="product-photo" />
+          <div class="product-name">Kesar Pista</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/ice creams/chocochips.webp" alt="Choco Chips" class="product-photo" />
+          <div class="product-name">Choco Chips</div>
+        </div>
+      </div>
+
+      <h2 class="products-header">Kulfi</h2>
+      <div class="products-container">
+        <div class="product-box">
+          <img src="images/products/kulfi/malaikulfi.webp" alt="Malai Kulfi" class="product-photo" />
+          <div class="product-name">Malai Kulfi</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/kulfi/kesarkulfi.webp" alt="Keshar Kulfi" class="product-photo" />
+          <div class="product-name">Keshar Kulfi</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/kulfi/paankulfi.webp" alt="Paan Kulfi" class="product-photo" />
+          <div class="product-name">Paan Kulfi</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/kulfi/chocolatenut.webp" alt="Chocolate Nut Kulfi" class="product-photo" />
+          <div class="product-name">Chocolate Nut Kulfi</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/kulfi/maharaja.webp" alt="Maharaja Kulfi" class="product-photo" />
+          <div class="product-name">Maharaja Kulfi</div>
+        </div>
+      </div>
+
+      <h2 class="products-header">Ice-Cream Shakes</h2>
+      <div class="products-container">
+        <div class="product-box">
+          <img src="images/products/shakes/vanilla.webp" alt="Vanilla Shake" class="product-photo" />
+          <div class="product-name">Vanilla</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/shakes/mango.webp" alt="Alphanso Mango Shake" class="product-photo" />
+          <div class="product-name">Alphanso Mango</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/shakes/chocolate.webp" alt="Belgian Chocolate Shake" class="product-photo" />
+          <div class="product-name">Belgian Chocolate</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/shakes/strawberry.webp" alt="Strawberry Shake" class="product-photo" />
+          <div class="product-name">Strawberry</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/shakes/kesarpista.webp" alt="Kesar Pista Shake" class="product-photo" />
+          <div class="product-name">Kesar Pista</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/shakes/coldcoffee.webp" alt="Cold Coffee" class="product-photo" />
+          <div class="product-name">Cold Coffee</div>
+        </div>
+      </div>
+
+      <h2 class="products-header">Mojito</h2>
+      <div class="products-container">
+        <div class="product-box">
+          <img src="images/products/mohito/virgin.webp" alt="Virgin" class="product-photo" />
+          <div class="product-name">Virgin</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/mohito/watermelonmohito.webp" alt="Watermelon Mojito" class="product-photo" />
+          <div class="product-name">Watermelon</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/mohito/greenapple.webp" alt="Green Apple Mojito" class="product-photo" />
+          <div class="product-name">Green Apple</div>
+        </div>
+        <div class="product-box">
+          <img src="images/products/mohito/lemon.webp" alt="Lemon Soda Mojito" class="product-photo" />
+          <div class="product-name">Lemon Soda</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="images/SweetSnowballWhite-cropped.svg" alt="Sweet Snowball Logo" />
+      </div>
+      <div class="footer-details">
+        <a href="mailto:seemafoods9@gmail.com">seemafoods9@gmail.com</a>
+        <a href="https://instagram.com/sweetsnowball.in" target="_blank">Instagram</a>
+        <a href="tel:+919540591388">+91 9540591388</a>
+      </div>
+    </div>
+    <div class="footer-copy">Copyright © 2026 Sweet Snowball</div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
